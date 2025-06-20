@@ -7,7 +7,7 @@ class ProfileCard extends StatelessWidget {
   final String? avatarUrl;
 
   const ProfileCard({
-    super.key,
+    super.key, // Suggestion from IntelliSense
     required this.name,
     required this.email,
     required this.age,
@@ -16,26 +16,38 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // TODO: add a CircleAvatar with radius 50 and backgroundImage NetworkImage(avatarUrl!) if url is not null and text name[0].toUpperCase() if url is null
-            
-            const SizedBox(height: 16),
-            // TODO: add a Text with name and style fontSize: 24, fontWeight: FontWeight.bold
-           
-            const SizedBox(height: 8),
-            // TODO: add a Text with Age: $age and style fontSize: 16
-           
-            const SizedBox(height: 8),
-            // TODO: add a Text with email and style fontSize: 16, color: Colors.grey
-            
-          ],
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        TextBox(name), // display the name
+        const SizedBox(height: 10.0), // margin top-bottom
+        TextBox(email), // display the email
+        const SizedBox(height: 10.0), // to "split" the "TextBox"es
+        const SizedBox(height: 10.0),
+        TextBox("Age: $age"), // display the age
+        CircleAvatar(
+          child: avatarUrl != null ? null : Text(name[0]),
         ),
+      ]),
+    );
+  }
+}
+
+// Class of a simple
+class TextBox extends StatelessWidget {
+  final String text;
+
+  const TextBox(this.text, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+          color: Color.fromRGBO(0, 0, 0, 0.3),
+          borderRadius: BorderRadius.all(Radius.circular(20.0)) // 20px
+          ),
+      child: Padding(
+        padding: const EdgeInsets.all(13.77),
+        child: Text(text),
       ),
     );
   }

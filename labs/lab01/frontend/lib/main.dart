@@ -60,12 +60,35 @@ class MyHomePage extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Center(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(16.0),
-                // TODO: change to ProfileCard
-                child: SizedBox.shrink(),
-              ),
+            const Text(
+              'Profile Card Example',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const ProfileCard(
+              name: 'John Doe',
+              email: 'john@example.com',
+              age: 30,
+              avatarUrl: 'https://example.com/avatar.jpg',
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Counter App Example',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CounterApp()));
+                },
+                child: const Text("Counter")),
+            const SizedBox(height: 24),
+            const Text(
+              'Registration Form Example',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             CounterApp(),
             RegistrationForm(),
