@@ -16,18 +16,35 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        TextBox(name), // display the name
-        const SizedBox(height: 10.0), // margin top-bottom
-        TextBox(email), // display the email
-        const SizedBox(height: 10.0), // to "split" the "TextBox"es
-        const SizedBox(height: 10.0),
-        TextBox("Age: $age"), // display the age
-        CircleAvatar(
-          child: avatarUrl != null ? null : Text(name[0]),
+    return Card(
+      margin: const EdgeInsets.all(16.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+                radius: 50,
+                backgroundImage:
+                    (avatarUrl != null ? NetworkImage(avatarUrl!) : null),
+                child: (avatarUrl != null
+                    ? null
+                    : Text(name.isEmpty ? "" : name[0].toUpperCase()))),
+            const SizedBox(height: 16),
+            Text(name.isEmpty ? '?' : name,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            Text("Age: $age",
+                style: const TextStyle(
+                  fontSize: 16,
+                )),
+            const SizedBox(height: 8),
+            Text(email,
+                style: const TextStyle(fontSize: 16, color: Colors.grey)),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }

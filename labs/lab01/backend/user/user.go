@@ -29,7 +29,7 @@ func NewUser(name string, age int, email string) (*User, error) {
 func (u *User) Validate() error {
 	// Name cannot be empty
 	if len(u.Name) == 0 {
-		return ErrEmptyName
+		return ErrInvalidName
 	}
 
 	// Check user's age
@@ -47,17 +47,11 @@ func (u *User) Validate() error {
 
 // String returns a string representation of the user, formatted as "Name: <name>, Age: <age>, Email: <email>"
 func (u *User) String() string {
-	var ret string = u.Name + " "                           // write name info
+	var ret string = "Name: " + u.Name + ", Age: "          // write name info
 	ret += string(strconv.AppendInt(nil, int64(u.Age), 10)) // write age info
-	ret += " " + u.Email                                    // write email info
+	ret += ", Email: " + u.Email                            // write email info
 
 	return ret
-}
-
-// NewUser creates a new user with validation, returns an error if the user is not valid
-func NewUser(name string, age int, email string) (*User, error) {
-	// TODO: Implement this function
-	return nil, nil
 }
 
 // IsValidEmail checks if the email format is valid

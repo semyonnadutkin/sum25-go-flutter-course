@@ -28,78 +28,95 @@ class _RegistrationFormState extends State<RegistrationForm> {
       setState(() {
         _message = "Registration successful!";
       });
+
+      _formKey.currentState!.reset();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Name text field
-            TextFormField(
-              key: const Key("name"),
-              controller: _nameController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter your name";
-                }
-
-                return null;
-              },
-            ),
-
-            const SizedBox(
-              height: 20,
-            ),
-
-            // Email text field
-            TextFormField(
-              key: const Key("email"),
-              controller: _emailController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter a valid email";
-                }
-
-                if (!value.contains('@') || !value.contains('.')) {
-                  return "Please enter a valid email";
-                }
-
-                return null;
-              },
-            ),
-
-            const SizedBox(
-              height: 20,
-            ),
-
-            // Password text field
-            TextFormField(
-              key: const Key("password"),
-              controller: _passwordController,
-              validator: (value) {
-                if (value == null || value.length < 6) {
-                  return "Password must be at least 6 characters";
-                }
-
-                return null;
-              },
-            ),
-
-            const SizedBox(height: 20),
-
-            ElevatedButton(onPressed: _submitForm, child: const Text("Submit")),
-
-            const SizedBox(height: 20),
-
-            Text(_message),
-          ],
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Registration Form"),
         ),
-      ),
-    );
+        body: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Name text field
+                TextFormField(
+                  key: const Key("name"),
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your name";
+                    }
+
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Name",
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                // Email text field
+                TextFormField(
+                  key: const Key("email"),
+                  controller: _emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a valid email";
+                    }
+
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return "Please enter a valid email";
+                    }
+
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Email",
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                // Password text field
+                TextFormField(
+                  key: const Key("password"),
+                  obscureText: true,
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value == null || value.length < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Password",
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                ElevatedButton(
+                    onPressed: _submitForm, child: const Text("Submit")),
+
+                const SizedBox(height: 20),
+
+                Text(_message),
+              ],
+            ),
+          ),
+        ));
   }
 }

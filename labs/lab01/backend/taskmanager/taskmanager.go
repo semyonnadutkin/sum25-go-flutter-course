@@ -28,24 +28,24 @@ type TaskManager struct {
 
 // NewTaskManager creates a new task manager
 func NewTaskManager() *TaskManager {
-	return &TaskManager{tasks: make(map[int]*Task), nextID: 1}
+	return &TaskManager{tasks: make(map[int]Task), nextID: 1}
 }
 
 // AddTask adds a new task to the manager
-func (tm *TaskManager) AddTask(title, description string) (*Task, error) {
+func (tm *TaskManager) AddTask(title, description string) (Task, error) {
 	// Title of a task cannot be empty
 	if len(title) == 0 {
-		return nil, ErrEmptyTitle
+		return Task{}, ErrEmptyTitle
 	}
 
 	// Creating and adding new task
 	// Not done by default
-	taskPtr := &Task{Title: title, Description: description, ID: tm.nextID,
+	task := Task{Title: title, Description: description, ID: tm.nextID,
 		Done: false, CreatedAt: time.Now()}
-	tm.tasks[tm.nextID] = taskPtr
+	tm.tasks[tm.nextID] = task
 	tm.nextID++
 
-	return taskPtr, nil
+	return task, nil
 }
 
 // UpdateTask updates an existing task, returns an error if the title is empty or the task is not found
@@ -55,66 +55,52 @@ func (tm *TaskManager) UpdateTask(id int, title, description string, done bool) 
 		return ErrEmptyTitle
 	}
 
-	// ID must be positive
-	if id <= 0 {
-		return ErrInvalidID
-	}
-
-	// No task with a specified ID was recorder
-	if tm.tasks[id] == nil {
+	// No task with a specified ID was found
+	task, found := tm.tasks[id]
+	if !found {
 		return ErrTaskNotFound
 	}
 
 	// Update the task
-	task := tm.tasks[id]
 	task.Title = title
 	task.Description = description
 	task.Done = done
+	tm.tasks[id] = task
 
 	return nil
 }
 
 // DeleteTask removes a task from the manager, returns an error if the task is not found
 func (tm *TaskManager) DeleteTask(id int) error {
-	// ID must be positive
-	if id <= 0 {
-		return ErrInvalidID
-	}
-
-	// No task with a specified ID was recorder
-	if tm.tasks[id] == nil {
+	// No task with a specified ID was found
+	_, found := tm.tasks[id]
+	if !found {
 		return ErrTaskNotFound
 	}
 
 	// Remove the task
-	tm.tasks[id] = nil
+	delete(tm.tasks, id)
 
-	return nil
+	return nil // no error
 }
 
 // GetTask retrieves a task by ID
-func (tm *TaskManager) GetTask(id int) (*Task, error) {
-	// ID must be positive
-	if id <= 0 {
-		return nil, ErrInvalidID
+func (tm *TaskManager) GetTask(id int) (Task, error) {
+	// No task with a specified ID was found
+	task, found := tm.tasks[id]
+	if !found {
+		return task, ErrTaskNotFound
 	}
 
-	// No task with a specified ID was recorder
-	if tm.tasks[id] == nil {
-		return nil, ErrTaskNotFound
-	}
-
-	return tm.tasks[id], nil
+	return task, nil
 }
 
 // ListTasks returns all tasks, optionally filtered by done status
-func (tm *TaskManager) ListTasks(filterDone *bool) []*Task {
-	// TODO: Implement task listing with optional filter
-	res := make([]*Task, 0, tm.nextID-1)
-	for id := range tm.tasks {
-		taskPtr := tm.tasks[id]
-		if (filterDone == nil) || (taskPtr.Done == *filterDone) {
-			res = append(res, taskPtr)
+func (tm *TaskManager) ListTasks(filterDone *bool) []Task {
+	res := make([]Task, 0, tm.nextID-1)
+	for _, task := range tm.tasks {
+		if (filterDone == nil) || (task.Done == *filterDone) {
+			res = append(res, task)
 		}
 	}
 

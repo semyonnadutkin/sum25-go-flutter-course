@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/main.dart';
 
 class CounterApp extends StatefulWidget {
   const CounterApp({super.key});
@@ -37,7 +36,14 @@ class _CounterAppState extends State<CounterApp> {
     // Home screen
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Counter"),
+          title: const Text("Counter App"),
+          actions: [
+            // Reset button
+            ElevatedButton(
+              onPressed: _reset,
+              child: const Icon(Icons.refresh),
+            ),
+          ],
         ),
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -50,22 +56,16 @@ class _CounterAppState extends State<CounterApp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Decrement button
-                ElevatedButton(
+                FloatingActionButton(
                   onPressed: _decrement,
                   child: const Icon(Icons.remove),
                 ),
 
                 const SizedBox(width: 20.0), // to split buttons
 
-                // Reset button
-                ElevatedButton(
-                  onPressed: _reset,
-                  child: const Icon(Icons.refresh),
-                ),
-
                 const SizedBox(width: 20.0),
 
-                ElevatedButton(
+                FloatingActionButton(
                   onPressed: _increment,
                   child: const Icon(Icons.add),
                 ),
