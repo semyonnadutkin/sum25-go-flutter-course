@@ -23,8 +23,6 @@ type User struct {
 func NewUser(name string, age int, email string) (*User, error) {
 	userPtr := &User{Name: name, Age: age, Email: email}
 	return userPtr, userPtr.Validate()
-	userPtr := &User{Name: name, Age: age, Email: email}
-	return userPtr, userPtr.Validate()
 }
 
 // Validate checks if the user data is valid
