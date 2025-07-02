@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/main.dart';
 
 class CounterApp extends StatefulWidget {
-  const CounterApp({super.key});
   const CounterApp({super.key});
 
   @override
@@ -25,17 +23,11 @@ class _CounterAppState extends State<CounterApp> {
     setState(() {
       _counter--;
     });
-    setState(() {
-      _counter--;
-    });
   }
 
   // Sets counter to it's initial value (0)
   // Sets counter to it's initial value (0)
   void _reset() {
-    setState(() {
-      _counter = 0;
-    });
     setState(() {
       _counter = 0;
     });

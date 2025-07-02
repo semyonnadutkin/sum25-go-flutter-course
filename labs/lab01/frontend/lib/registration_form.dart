@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key}); // IntelliSense suggestion
-  const RegistrationForm({super.key}); // IntelliSense suggestion
 
   @override
   State<RegistrationForm> createState() => _RegistrationFormState();
@@ -13,8 +12,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  String _message = "";
 
   String _message = "";
 
