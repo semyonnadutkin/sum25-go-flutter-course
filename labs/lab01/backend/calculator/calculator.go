@@ -11,18 +11,15 @@ var ErrDivisionByZero = errors.New("division by zero")
 // Add adds two float64 numbers
 func Add(a, b float64) float64 {
 	return a + b
-	return a + b
 }
 
 // Subtract subtracts b from a
 func Subtract(a, b float64) float64 {
 	return a - b
-	return a - b
 }
 
 // Multiply multiplies two float64 numbers
 func Multiply(a, b float64) float64 {
-	return a * b
 	return a * b
 }
 
@@ -33,16 +30,10 @@ func Divide(a, b float64) (float64, error) {
 	}
 
 	return a / b, nil
-	if b == 0 {
-		return 0, ErrDivisionByZero
-	}
-
-	return a / b, nil
 }
 
 // StringToFloat converts a string to float64
 func StringToFloat(s string) (float64, error) {
-	return strconv.ParseFloat(s, 64)
 	return strconv.ParseFloat(s, 64)
 }
 
